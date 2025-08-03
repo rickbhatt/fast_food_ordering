@@ -1,7 +1,16 @@
+import { ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from "@clerk/clerk-expo/token-cache";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import "./globals.css";
+
+const clerkPublishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+if (!clerkPublishableKey) {
+  throw new Error(
+    "Missing Clerk Publishable Key. Please set the EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY environment variable."
+  );
+}
 
 SplashScreen.preventAutoHideAsync();
 
@@ -39,5 +48,9 @@ const InitialLayout = () => {
 };
 
 export default function RootLayout() {
-  return <InitialLayout />;
+  return (
+    <ClerkProvider tokenCache={tokenCache} publishableKey={clerkPublishableKey}>
+      <InitialLayout />
+    </ClerkProvider>
+  );
 }
