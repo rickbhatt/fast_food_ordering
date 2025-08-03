@@ -14,6 +14,8 @@ const InitialLayout = () => {
     "Quicksand-Light": require("../../assets/fonts/Quicksand-Light.ttf"),
   });
 
+  const isAuthenticated = false;
+
   useEffect(() => {
     if (error) {
       console.log("fonts error", error);
@@ -24,7 +26,16 @@ const InitialLayout = () => {
     }
   }, [fontsLoaded, error]);
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={!isAuthenticated}>
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+      <Stack.Protected guard={isAuthenticated}>
+        <Stack.Screen name="(protected)/(tabs)" />
+      </Stack.Protected>
+    </Stack>
+  );
 };
 
 export default function RootLayout() {
