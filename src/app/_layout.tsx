@@ -1,7 +1,8 @@
-import { ClerkProvider } from "@clerk/clerk-expo";
+import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import { tokenCache } from "@clerk/clerk-expo/token-cache";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "./globals.css";
 
@@ -23,6 +24,8 @@ const InitialLayout = () => {
     "Quicksand-Light": require("../../assets/fonts/Quicksand-Light.ttf"),
   });
 
+  const { isSignedIn } = useAuth();
+
   const isAuthenticated = false;
 
   useEffect(() => {
@@ -37,10 +40,10 @@ const InitialLayout = () => {
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Protected guard={!isAuthenticated}>
-        <Stack.Screen name="(auth)" />
+      <Stack.Protected guard={!isSignedIn}>
+        <Stack.Screen name="(public)" />
       </Stack.Protected>
-      <Stack.Protected guard={isAuthenticated}>
+      <Stack.Protected guard={isSignedIn as boolean}>
         <Stack.Screen name="(protected)/(tabs)" />
       </Stack.Protected>
     </Stack>
@@ -49,8 +52,14 @@ const InitialLayout = () => {
 
 export default function RootLayout() {
   return (
-    <ClerkProvider tokenCache={tokenCache} publishableKey={clerkPublishableKey}>
-      <InitialLayout />
-    </ClerkProvider>
+    <>
+      <StatusBar style="auto" />
+      <ClerkProvider
+        tokenCache={tokenCache}
+        publishableKey={clerkPublishableKey}
+      >
+        <InitialLayout />
+      </ClerkProvider>
+    </>
   );
 }

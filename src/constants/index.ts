@@ -6,6 +6,7 @@ import check from "@assets/icons/check.png";
 import clock from "@assets/icons/clock.png";
 import dollar from "@assets/icons/dollar.png";
 import envelope from "@assets/icons/envelope.png";
+import google from "@assets/icons/google.png";
 import home from "@assets/icons/home.png";
 import location from "@assets/icons/location.png";
 import logout from "@assets/icons/logout.png";
@@ -199,4 +200,5 @@ export const images = {
   star,
   trash,
   user,
+  google,
 };
