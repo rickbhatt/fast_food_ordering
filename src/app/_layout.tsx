@@ -26,8 +26,6 @@ const InitialLayout = () => {
 
   const { isSignedIn } = useAuth();
 
-  const isAuthenticated = false;
-
   useEffect(() => {
     if (error) {
       console.log("fonts error", error);
