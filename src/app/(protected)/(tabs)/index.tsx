@@ -84,7 +84,7 @@ export default function Index() {
               </View>
             );
           }}
-          contentContainerClassName="pb-28 px-5"
+          contentContainerClassName="pb-16 px-5"
         />
       </SafeAreaView>
     </>
