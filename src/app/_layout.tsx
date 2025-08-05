@@ -1,5 +1,6 @@
 import { ClerkLoaded, ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import { tokenCache } from "@clerk/clerk-expo/token-cache";
+import * as Sentry from "@sentry/react-native";
 import { ConvexReactClient } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { useFonts } from "expo-font";
@@ -17,6 +18,25 @@ if (!clerkPublishableKey) {
 
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
   unsavedChangesWarning: false,
+});
+
+Sentry.init({
+  dsn: "https://f7b64fa26145046fa56cd3eb0940fc20@o4509792171393024.ingest.us.sentry.io/4509792194723840",
+
+  // Adds more context data to events (IP address, cookies, user, etc.)
+  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
+  sendDefaultPii: true,
+
+  // Configure Session Replay
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [
+    Sentry.mobileReplayIntegration(),
+    Sentry.feedbackIntegration(),
+  ],
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
 });
 
 SplashScreen.preventAutoHideAsync();
@@ -54,7 +74,7 @@ const InitialLayout = () => {
   );
 };
 
-export default function RootLayout() {
+const RootLayout = () => {
   return (
     <>
       <StatusBar style="auto" />
@@ -70,4 +90,8 @@ export default function RootLayout() {
       </ClerkProvider>
     </>
   );
-}
+};
+
+export default Sentry.wrap(RootLayout);
+
+Sentry.showFeedbackWidget();

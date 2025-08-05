@@ -1,6 +1,7 @@
 import CustomButtom from "@/components/CustomButtom";
 import { images } from "@/constants";
 import { useAuth, useSSO } from "@clerk/clerk-expo";
+import * as Sentry from "@sentry/react-native";
 import * as Linking from "expo-linking";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -39,6 +40,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log("🚀 ~ handleLogin ~ error:", error);
+      Sentry.captureException(error);
       router.replace("/(public)");
     } finally {
       setIsLoading(false);
