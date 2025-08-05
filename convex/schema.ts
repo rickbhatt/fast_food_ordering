@@ -3,10 +3,13 @@ import { v } from "convex/values";
 
 export const User = {
   email: v.string(),
-  name: v.string(),
+  fullName: v.optional(v.string()),
   imageUrl: v.string(),
+  clerkId: v.string(),
 };
 
 export default defineSchema({
-  users: defineTable(User),
+  users: defineTable(User)
+    .index("byEmail", ["email"])
+    .index("byClerkId", ["clerkId"]),
 });
