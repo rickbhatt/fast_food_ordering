@@ -3,11 +3,12 @@ import { images } from "@/constants";
 import { useAuth, useSSO } from "@clerk/clerk-expo";
 import * as Linking from "expo-linking";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions, Image, View } from "react-native";
 
 const Login = () => {
   const { startSSOFlow: startGoogleOAuthFlow } = useSSO();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isSignedIn } = useAuth();
 
@@ -15,6 +16,8 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
+      setIsLoading(true);
+
       if (isSignedIn) {
         router.replace("/(protected)/(tabs)");
         return;
@@ -37,6 +40,8 @@ const Login = () => {
     } catch (error) {
       console.log("🚀 ~ handleLogin ~ error:", error);
       router.replace("/(public)");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,6 +69,8 @@ const Login = () => {
             textStyle="text-black"
             leftIcon={<Image source={images.google} className="size-7" />}
             onPress={handleLogin}
+            activityIndicatorColor="black"
+            isLoading={isLoading}
           />
         </View>
       </View>

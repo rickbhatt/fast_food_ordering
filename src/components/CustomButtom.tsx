@@ -10,19 +10,22 @@ const CustomButtom = ({
   textStyle,
   leftIcon,
   isLoading = false,
+  activityIndicatorColor = "white",
 }: CustomButtonProps) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
+      activeOpacity={0.4}
       className={cn("custom-btn", style)}
       onPress={onPress}
     >
-      {leftIcon}
+      {!isLoading && leftIcon}
       <View className="flex-center flex-row">
         {isLoading ? (
-          <ActivityIndicator size="small" color="white" />
+          <ActivityIndicator size="small" color={activityIndicatorColor} />
         ) : (
-          <Text className={cn("paragraph-semibold", textStyle)}>{title}</Text>
+          <>
+            <Text className={cn("paragraph-semibold", textStyle)}>{title}</Text>
+          </>
         )}
       </View>
     </TouchableOpacity>

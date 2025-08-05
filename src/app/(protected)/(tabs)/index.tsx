@@ -17,7 +17,7 @@ export default function Index() {
   return (
     <>
       <StatusBar style="dark" />
-      <SafeAreaView edges={["top"]} className="bg-white">
+      <SafeAreaView edges={["top"]} className="flex-1 bg-white">
         <FlatList
           data={offers}
           showsVerticalScrollIndicator={false}

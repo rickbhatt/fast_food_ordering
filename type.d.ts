@@ -45,6 +45,7 @@ interface CustomButtonProps {
   leftIcon?: React.ReactNode;
   textStyle?: string;
   isLoading?: boolean;
+  activityIndicatorColor?: string;
 }
 
 interface CustomHeaderProps {
