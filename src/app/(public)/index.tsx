@@ -3,10 +3,8 @@ import { images } from "@/constants";
 import { useAuth, useSSO } from "@clerk/clerk-expo";
 import * as Linking from "expo-linking";
 import { useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Dimensions, Image, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const Login = () => {
   const { startSSOFlow: startGoogleOAuthFlow } = useSSO();
@@ -43,8 +41,7 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1">
-      <StatusBar hidden />
+    <>
       <View className="bg-white h-full">
         <View
           className="w-full relative"
@@ -70,7 +67,7 @@ const Login = () => {
           />
         </View>
       </View>
-    </SafeAreaView>
+    </>
   );
 };
 
