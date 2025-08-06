@@ -82,3 +82,12 @@ interface GetMenuParams {
   category: string;
   query: string;
 }
+
+interface User {
+  _creationTime: number;
+  _id: Id<"users"> | string;
+  clerkId: string;
+  email: string;
+  fullName?: string;
+  imageUrl?: string;
+}

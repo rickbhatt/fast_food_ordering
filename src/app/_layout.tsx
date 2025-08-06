@@ -93,5 +93,3 @@ const RootLayout = () => {
 };
 
 export default Sentry.wrap(RootLayout);
-
-Sentry.showFeedbackWidget();
